@@ -1,8 +1,10 @@
-# AsterPlotD3Alcs for QlikSense Extension
+# AsterPlotD3Alcs para QlikSense Extension
 O gráfico de Aster é do tipo fatias de pizza com comprimentos relativos aos pesos de cada uma de suas fatias que se estendem até às bordas da circunferência do gráfico.
 
 
-**AsterPlotD3Alcs** é um upgrade do Projeto adaptado para QlikSense Extension: [D3 Visualization Library for Qlik Sense](https://github.com/skokenes/Qlik-Sense-D3-Visualization-Library) e [Ben Best’s Blocks](http://bl.ocks.org/bbest/2de0e25d4840c68f2db1).
+**AsterPlotD3Alcs** é um upgrade do Projeto adaptado para QlikSense Extension:
+* [D3 Visualization Library for Qlik Sense](https://github.com/skokenes/Qlik-Sense-D3-Visualization-Library)
+* [Ben Best’s Blocks](http://bl.ocks.org/bbest/2de0e25d4840c68f2db1).
 
 
 
