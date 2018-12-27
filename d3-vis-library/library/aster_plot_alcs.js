@@ -89,7 +89,7 @@ var viz = function($element,layout,_this) {
 			.attr('class', 'd3-tip')
 			.offset([0, 0])
 			.html(function(d) {
-				return d.data.dim(0).qText + ": <span style='color:orangered'>" + Math.round(d.data.measure(1).qNum * 100 / score) + "%</span>";
+				return d.data[0].qText + ": <span style='color:orangered'>" + Math.round(d.data[1].qNum * 100 / score) + "%</span>";
 			}); 
 		
 		var max_2 = d3.max(data,function(d) {
