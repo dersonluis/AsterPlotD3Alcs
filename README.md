@@ -8,7 +8,7 @@ O gráfico de Aster é do tipo fatias de pizza com comprimentos relativos aos pe
 
 
 
-### PRINCIPAIS CARACTERÍSTICAS:
+## PRINCIPAIS CARACTERÍSTICAS:
 - Cálculo valor central do gráfico: somatório dos pesos de cada fatia que compõe o gráfico.
 - Junção de fatias menores numa só fatia/top dos maiores resultados.
 - Opção de range de paleta de cores (Qlik Sense).
@@ -16,14 +16,14 @@ O gráfico de Aster é do tipo fatias de pizza com comprimentos relativos aos pe
 
 
 
-### ENTRADAS DE DADOS - QlikSense
+## ENTRADAS DE DADOS - QlikSense
 *AsterPlotD3Alcs* é populado com, basicamente 01 dimensão e 01 medida.
 
 [![](https://github.com/dersonluis/AsterPlotD3Alcs/blob/master/dadosSense.png)](https://github.com/dersonluis/AsterPlotD3Alcs/blob/master/dadosSense.png)
 
 
 
-### CONFIGURAÇÕES
+## CONFIGURAÇÕES
 [![](https://github.com/dersonluis/AsterPlotD3Alcs/blob/master/options.png)](https://github.com/dersonluis/AsterPlotD3Alcs/blob/master/options.png)
 
 * Legend
@@ -51,7 +51,7 @@ O gráfico de Aster é do tipo fatias de pizza com comprimentos relativos aos pe
 
 
 
-### EXEMPLO FORMATO DE DADOS
+## EXEMPLO FORMATO DE DADOS
 
 ```javascript
 [alcs]:
