@@ -1,0 +1,7 @@
+{
+	"name" : "AsterPlotD3Alcs",
+	"description" : "Gráfico de Aster, integrated into a Qlik Sense extension - responsive",
+	"type" : "visualization",
+	"version": 1.0,
+	"author": "Anderson Luís"
+}
