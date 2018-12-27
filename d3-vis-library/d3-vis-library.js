@@ -163,7 +163,8 @@ define(["jquery", "./js/d3.min", "./js/senseD3utils", "./js/senseUtils", "./libr
 
 
 					} else {
-						viz($element, layout, self);
+						var dataAux = layout.qHyperCube.qDataPages[0].qMatrix;
+						viz($element, layout, self, dataAux);
 					}
 
 				}
