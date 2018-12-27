@@ -16,7 +16,6 @@
  */
 
 function defineColor(cor){
-	console.log('aqui');
 	var search = ",";
 	var colorAux = [];
 	var antPos = -1;
@@ -29,26 +28,39 @@ function defineColor(cor){
 	return colorAux;	
 }
 
+function copyData(data){
+	var aux = [];
+	for (i = 0; i< data.length; i++){
+		var temp = [];
+		temp.measure = data[i].measure;
+		temp.dim = data[i].dim;
+		temp[0] = data[i][0];
+		temp[1] = data[i][1];
+		aux.push(temp);
+	}
+	return aux;
+}
 
-
-var viz = function($element,layout,_this) {
+var viz = function($element,layout,_this, dataAux) {
 	var id = senseUtils.setupContainer($element,layout,"d3vl_aster"),
 		ext_width = $element.width(),
 		ext_height = $element.height(),
 		classDim = layout.qHyperCube.qDimensionInfo[0].qFallbackTitle.replace(/\s+/g, '-');
 
-	var data = layout.qHyperCube.qDataPages[0].qMatrix;
-	var dataAux = layout.qHyperCube.qDataPages[0].qMatrix;
+	//var dataAux = layout.qHyperCube.qDataPages[0].qMatrix;
+	var data = copyData(layout.qHyperCube.qDataPages[0].qMatrix);
+	var valorTrunk = 0;
 	
 	//truncar dados
-	if(layout.maxItems != 0){	
+	if(layout.maxItems != 0){
+		//data = copyData(dataAux);
 		if(data.length - 1 > layout.maxItems){
 			var aux = 0;
 			for (i = layout.maxItems - 1; i< data.length; i++){
 				aux += data[i][1].qNum;
 			}
 			data[layout.maxItems - 1][0].qText = "Others";
-			data[layout.maxItems - 1][1].qNum = aux;
+			valorTrunk = aux;
 						
 			data = data.slice(0, layout.maxItems);
 		}
@@ -64,7 +76,7 @@ var viz = function($element,layout,_this) {
 		
 	// Load in the appropriate script and viz
 	jQuery.getScript(url,function() {
-		console.log('anderson');
+		//console.log('anderson');
 		var margin = {top: 10, right: -30, bottom: 10, left: 10},
 			width = ext_width - margin.left - margin.right,
 			height = ext_height - margin.top - margin.bottom			
@@ -73,16 +85,20 @@ var viz = function($element,layout,_this) {
 		
 		var pie = d3.layout.pie()
 		    .sort(null)
-		    .value(function(d) { 
-				return d.measure(1).qNum; 
+		    .value(function(d, i) {
+				if(i == layout.maxItems - 1)
+					return valorTrunk;
+				else return d.measure(1).qNum; 
 			});
 			
 		
 		// calculate the MED1
 		var score =
-			data.reduce(function(a, b) {
+			data.reduce(function(a, b, i) {
 				//console.log('a:' + a + ', b.score: ' + b[2].qNum + ', b.weight: ' + b[3].qNum);
-				return a + b[1].qNum;
+				if(i == layout.maxItems - 1)
+					return a + valorTrunk;
+				else return a + b[1].qNum;
 			}, 0);
 			
 		 var tip = d3.tip()
@@ -92,8 +108,10 @@ var viz = function($element,layout,_this) {
 				return d.data[0].qText + ": <span style='color:orangered'>" + Math.round(d.data[1].qNum * 100 / score) + "%</span>";
 			}); 
 		
-		var max_2 = d3.max(data,function(d) {
-			return d[1].qNum
+		var max_2 = d3.max(data,function(d, i) {
+			if(i == layout.maxItems - 1)
+				return valorTrunk;
+			else return d[1].qNum
 		});
 		
 		var arc = d3.svg.arc()
@@ -114,7 +132,7 @@ var viz = function($element,layout,_this) {
 				(leg ? (width/2 - (width * 12.5 / 100)) : width/2) + "," + height / 2 + ")");
 			
 		svg.call(tip);
-		tip.hide;
+		//tip.hide;
 		var color = d3.scale.ordinal()
 			//.domain(data.map(function(d) {return d.dim(1).qText; }))
 			//.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
@@ -143,14 +161,14 @@ var viz = function($element,layout,_this) {
 				//selection
 				var value = parseInt(d.data.dim(1).qElemNumber,10), dim = 0;
 				if(i == maxItens - 1){
-					data = dataAux.slice(maxItens-1,dataAux.length-1);
+					data = copyData(dataAux.slice(maxItens-1,dataAux.length-1));
 					var value = [];
 					for(var j = 0; j < data.length; j++)
 						value.push(data[j][0].qElemNumber);
 					self.selectValues(dim, value, true);
 				}
 				else{
-					data = dataAux;
+					data = copyData(dataAux);
 					//d.data.dim(1).qSelect();				
 					self.selectValues(dim, [value], true);
 				}
@@ -167,8 +185,10 @@ var viz = function($element,layout,_this) {
 			.style("text-anchor", "middle")
 			.style("fill", "#ffffff")
 			//.attr("font-size", "28")
-			.text(function(d) {
-				return '' + d.data.measure(1).qNum;
+			.text(function(d, i) {
+				if(i == layout.maxItems - 1)
+					return '' + valorTrunk;
+				else return '' + d.data.measure(1).qNum;
 			});				
 
 		var outerPath = svg.selectAll(".outlineArc")
@@ -201,14 +221,14 @@ var viz = function($element,layout,_this) {
 				.on("click",function(d, i) {
 					var value = parseInt(data[i][0].qElemNumber,10), dim = 0;
 					if(i == maxItens - 1){
-						data = dataAux.slice(maxItens-1,dataAux.length-1);
+						data = copyData(dataAux.slice(maxItens-1,dataAux.length-1));
 						var value = [];
 						for(var j = 0; j < data.length; j++)
 							value.push(data[j][0].qElemNumber);
 						self.selectValues(dim, value, true);
 					}
 					else{
-						data = dataAux;
+						data = copyData(dataAux);
 						//d.data.dim(1).qSelect();				
 						self.selectValues(dim, [value], true);
 					}
