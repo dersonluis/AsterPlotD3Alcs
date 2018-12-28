@@ -8,7 +8,7 @@
  *	com comprimentos relativos aos pesos de cada uma de suas fatias
  *	que se estendem até às bordas da circunferência do gráfico.
  *	
- *	@version 1.0.1
+ *	@version 1.0.0
  *  	@date    2018-12-26
  *	
  *	Configurações básicas de Dimensões e medidas:
