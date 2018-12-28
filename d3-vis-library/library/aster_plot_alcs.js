@@ -1,5 +1,7 @@
 /**
  *	aspter_plot_alcs.js
+ *      Created by Anderson Luís - dersonluis@gmail.com - (c) 2018 Belo Horizonte
+ *	Testado em Qlik Sense Nov/2018
  *	https://github.com/dersonluis/AsterPlotD3Alcs
  *	
  *	O gráfico de Aster é do tipo fatias de pizza
@@ -7,12 +9,13 @@
  *	que se estendem até às bordas da circunferência do gráfico.
  *	
  *	@version 1.0.1
- *  @date    2018-12-26
+ *  	@date    2018-12-26
  *	
  *	Configurações básicas de Dimensões e medidas:
  *	LABEL = DIMENSÃO_1
  *	ID = MEDIDA_1
  *	
+ *	Não me responsabilizo por qualquer código. 
  */
 
 function defineColor(cor){
