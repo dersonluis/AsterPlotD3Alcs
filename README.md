@@ -77,3 +77,9 @@ O gráfico de Aster é do tipo fatias de pizza com comprimentos relativos aos pe
 ```
 
 [![](https://github.com/dersonluis/AsterPlotD3Alcs/blob/master/data.png)](https://github.com/dersonluis/AsterPlotD3Alcs/blob/master/data.png)
+
+
+
+***
+## License
+Released under the [The MIT License](https://opensource.org/licenses/MIT)
