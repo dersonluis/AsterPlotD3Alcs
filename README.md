@@ -19,6 +19,8 @@ O gráfico de Aster é do tipo fatias de pizza com comprimentos relativos aos pe
 ## ENTRADAS DE DADOS - QlikSense
 *AsterPlotD3Alcs* é populado com, basicamente 01 dimensão e 01 medida.
 
+* Veja aplicativo exemplo: [AsterPlotD3Alcs](https://github.com/dersonluis/AsterPlotD3Alcs/blob/master/app/AsterPlotAlcs.qvf)
+
 [![](https://github.com/dersonluis/AsterPlotD3Alcs/blob/master/dadosSense.png)](https://github.com/dersonluis/AsterPlotD3Alcs/blob/master/dadosSense.png)
 
 
