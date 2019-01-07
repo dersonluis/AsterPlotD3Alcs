@@ -1,6 +1,6 @@
 /**
  *	aspter_plot_alcs.js
- *      Created by Anderson Luís - dersonluis@gmail.com - (c) 2018 Belo Horizonte
+ *  Created by Anderson Luís - dersonluis@gmail.com - (c) 2018 Belo Horizonte
  *	Testado em Qlik Sense Nov/2018
  *	https://github.com/dersonluis/AsterPlotD3Alcs
  *	
@@ -33,17 +33,24 @@ function defineColor(cor){
 
 function copyData(data){
 	var aux = [];
-	for (i = 0; i< data.length; i++){
-		var temp = [];
-		temp.measure = data[i].measure;
-		temp.dim = data[i].dim;
-		temp[0] = data[i][0];
-		temp[1] = data[i][1];
-		aux.push(temp);
+	if(typeof data.length !== 'undefined'){
+		for (i = 0; i< data.length; i++){
+			var temp = [];
+			temp.measure = data[i].measure;
+			temp.dim = data[i].dim;
+			temp[0] = data[i][0];
+			temp[1] = data[i][1];
+			aux.push(temp);
+		}
 	}
 	return aux;
 }
 
+function fontRadius(radius, score){
+	var aux = score.toString().length > 2 ? score.toString().length : 2;	
+	return radius/(aux * 30);
+}			
+			
 var viz = function($element,layout,_this, dataAux) {
 	var id = senseUtils.setupContainer($element,layout,"d3vl_aster"),
 		ext_width = $element.width(),
@@ -92,6 +99,7 @@ var viz = function($element,layout,_this, dataAux) {
 				if(i == layout.maxItems - 1)
 					return valorTrunk;
 				else return d.measure(1).qNum; 
+				//else return d.measure(1).qText; 
 			});
 			
 		
@@ -114,7 +122,8 @@ var viz = function($element,layout,_this, dataAux) {
 		var max_2 = d3.max(data,function(d, i) {
 			if(i == layout.maxItems - 1)
 				return valorTrunk;
-			else return d[1].qNum
+			else return d[1].qNum;
+			//else return d[1].qText;
 		});
 		
 		var arc = d3.svg.arc()
@@ -189,9 +198,12 @@ var viz = function($element,layout,_this, dataAux) {
 			.style("fill", "#ffffff")
 			//.attr("font-size", "28")
 			.text(function(d, i) {
-				if(i == layout.maxItems - 1)
-					return '' + valorTrunk;
-				else return '' + d.data.measure(1).qNum;
+				if(i == layout.maxItems - 1){					
+					if(layout.qHyperCube.qMeasureInfo[0].qNumFormat.qFmt !== "#.##0")
+						return '\u2736';
+					else return '' + valorTrunk;
+				//else return '' + d.data.measure(1).qNum;
+				}else return '' + d.data.measure(1).qText;
 			});				
 
 		var outerPath = svg.selectAll(".outlineArc")
@@ -200,15 +212,16 @@ var viz = function($element,layout,_this, dataAux) {
 			.attr("fill", "none")
 			.attr("stroke", "gray")
 			.attr("class", "outlineArc")
-			.attr("d", outlineArc);		
-
+			.attr("d", outlineArc);	
+				
 		svg.append("svg:text")
 		.attr("class", "aster-score")
 		.attr("dy", ".35em")
 		.style("text-anchor", "middle")
-		.attr("font-size", function(d) {
+		/*.attr("font-size", function(d) {
 			return Math.round(score).toString().length <= 4 ? "300%" : "100%"
-		})
+		})*/
+		.attr("font-size", fontRadius(radius, score).toString() + "vw")
 		.text(Math.round(score));
 		
 		//LEGENDA	
